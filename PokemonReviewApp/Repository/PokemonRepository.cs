@@ -13,6 +13,37 @@ namespace PokemonReviewApp.Repository
             _context = context;
         }
 
+        public bool CreatePokemon(int ownerId, int categoryId, Pokemon pokemon)
+        {
+            var pokemonOwnerEntity = _context.Owners
+                    .Where(_ => _.Id == ownerId)
+                    .FirstOrDefault();
+
+            var category = _context.Categories
+                    .Where(_ => _.Id == categoryId)
+                    .FirstOrDefault();
+
+            var pokemonOwner = new PokemonOwner()
+            {
+                Owner = pokemonOwnerEntity,
+                Pokemon = pokemon
+            };
+
+            _context.Add(pokemonOwner);
+
+            var pokemonCategory = new PokemonCategory()
+            {
+                Category = category,
+                Pokemon = pokemon
+            };
+
+            _context.Add(pokemonCategory);
+
+            _context.Add(pokemon);
+
+            return Save();
+        }
+
         public Pokemon? GetPokemon(int id)  // it's gonna be a detail page
         {
             return _context.Pokemon
@@ -52,6 +83,13 @@ namespace PokemonReviewApp.Repository
         {
             return _context.Pokemon
                         .Any(_ => _.Id == pokemonId);
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+
+            return saved > 0 ? true : false;
         }
     }
 }
