@@ -4,12 +4,16 @@ namespace PokemonReviewApp.Interfaces
 {
     public interface IReviewRepository
     {
-        public ICollection<Review> GerReviews();
+        public ICollection<Review> GetReviews();
 
         public Review GetReview(int reviewId);
 
         public ICollection<Review> GetReviewsOfAPokemon(int pokemonId);
 
         public bool ReviewExists(int reviewId);
+
+        public bool CreateReview(Review review);
+
+        public bool Save();
     }
 }
