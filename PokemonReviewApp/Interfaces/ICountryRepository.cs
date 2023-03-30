@@ -16,6 +16,8 @@ namespace PokemonReviewApp.Interfaces
 
         public bool CreateCountry(Country country);
 
+        public bool UpdateCountry(Country country);
+
         public bool Save();
     }
 }

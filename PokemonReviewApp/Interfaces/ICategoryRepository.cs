@@ -14,6 +14,8 @@ namespace PokemonReviewApp.Interfaces
 
         public bool CreateCategory(Category category);
 
+        public bool UpdateCategory(Category category);
+
         public bool Save();
     }
 }
