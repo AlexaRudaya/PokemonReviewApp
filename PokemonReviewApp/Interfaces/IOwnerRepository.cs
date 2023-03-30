@@ -16,6 +16,7 @@ namespace PokemonReviewApp.Interfaces
 
         public bool CreateOwner(Owner owner);
 
+        public bool UpdateOwner(Owner owner);
         public bool Save();
     }
 }
