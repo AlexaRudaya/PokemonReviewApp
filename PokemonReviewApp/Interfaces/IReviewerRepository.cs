@@ -16,6 +16,8 @@ namespace PokemonReviewApp.Interfaces
 
         public bool UpdateReviewer(Reviewer reviewer);
 
+        public bool DeleteReviewer(Reviewer reviewer);
+
         public bool Save();
 
     }
