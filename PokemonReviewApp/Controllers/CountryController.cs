@@ -6,7 +6,7 @@ using PokemonReviewApp.Models;
 
 namespace PokemonReviewApp.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class CountryController : Controller
     {
@@ -19,6 +19,11 @@ namespace PokemonReviewApp.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Gets the list of all countries.
+        /// </summary>
+        /// <returns>The list of all countries.</returns>
+        /// <response code="200">Returns all of the countries.</response>
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Country>))]
         public IActionResult GetCountries()
@@ -33,10 +38,17 @@ namespace PokemonReviewApp.Controllers
             return Ok(countries);
         }
 
+        /// <summary>
+        /// Gets country by it's ID.
+        /// </summary>
+        /// <param name="countryId">ID of the country to get.</param>
+        /// <returns>The country with the specified ID.</returns>
+        /// <response code="200">Returns the country with the specified ID.</response>>
+        /// <response code="400">If the request is invalid.</response>>
         [HttpGet("countryId")]
         [ProducesResponseType(200, Type = typeof(Country))]
         [ProducesResponseType(400)]
-        public IActionResult GetCountry(int countryId) 
+        public IActionResult GetCountry(int countryId)
         {
             if (!_countryRepository.CountryExists(countryId))
             {
@@ -53,29 +65,41 @@ namespace PokemonReviewApp.Controllers
             return Ok(country);
         }
 
+        /// <summary>
+        /// Gets the country of an owner by owner ID.
+        /// </summary>
+        /// <param name="ownerId">The ID of the owner.</param>
+        /// <response code="200">Returns the country of the owner.</response>
+        /// <response code="400">If the request is invalid.</response>
         [HttpGet("/owners/{ownerId}")]
         [ProducesResponseType(200, Type = typeof(Country))]
         [ProducesResponseType(400)]
         public IActionResult GetCountryOfAnOwner(int ownerId)
-        { 
+        {
             var country = _mapper.Map<CountryDTO>(
                     _countryRepository.GetCountryByOwner(ownerId));
 
             if (!ModelState.IsValid)
-            { 
+            {
                 return BadRequest(ModelState);
             }
 
             return Ok(country);
         }
 
+        /// <summary>
+        /// Creates a new country.
+        /// </summary>
+        /// <param name="countryCreate">The country to be created.</param>
+        /// <response code="204">If a country created successfully.</response>
+        /// <response code="400">If the request is invalid.</response>
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
         public IActionResult CreateCountry([FromBody] CountryDTO countryCreate)
         {
             if (countryCreate == null)
-            { 
+            {
                 return BadRequest(ModelState);
             }
 
@@ -89,14 +113,14 @@ namespace PokemonReviewApp.Controllers
                 return StatusCode(422, ModelState);
             }
 
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
             var countryMap = _mapper.Map<Country>(countryCreate);
 
-            if (!_countryRepository.CreateCountry(countryMap)) 
+            if (!_countryRepository.CreateCountry(countryMap))
             {
                 ModelState.AddModelError("", "Something went wrong while saving");
                 return StatusCode(500, ModelState);
@@ -105,11 +129,19 @@ namespace PokemonReviewApp.Controllers
             return Ok("Successfully created");
         }
 
+        /// <summary>
+        /// Updates a country with the specified ID.
+        /// </summary>
+        /// <param name="countryId">The ID of the country to be updated.</param>
+        /// <param name="updatedCountry">The updated country data.</param>
+        /// <response code="204">If the country is successfully updated.</response>
+        /// <response code="400">If the request is invalid.</response>
+        /// <response code="404">If a country with the specified ID is not found.</response>
         [HttpPut("{countryId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult UpdateCountry(int countryId, [FromBody]CountryDTO updatedCountry)
+        public IActionResult UpdateCountry(int countryId, [FromBody] CountryDTO updatedCountry)
         {
             if (updatedCountry == null)
             {
@@ -123,7 +155,7 @@ namespace PokemonReviewApp.Controllers
 
             if (!_countryRepository.CountryExists(countryId))
             {
-                return NotFound();  
+                return NotFound();
             }
 
             if (!ModelState.IsValid)
@@ -142,11 +174,18 @@ namespace PokemonReviewApp.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Removes a country with the specified ID.
+        /// </summary>
+        /// <param name="countryId">The ID of the country to be removed.</param>
+        /// <response code="204">If the country is successfully removed.</response>
+        /// <response code="400">If the request is invalid.</response>
+        /// <response code="404">If a country with the specified ID is not found.</response>
         [HttpDelete("{countryId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public IActionResult DeleteCountry(int countryId) 
+        public IActionResult DeleteCountry(int countryId)
         {
             if (!_countryRepository.CountryExists(countryId))
             {
@@ -155,7 +194,7 @@ namespace PokemonReviewApp.Controllers
 
             var countryToDelete = _countryRepository.GetCountry(countryId);
 
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
