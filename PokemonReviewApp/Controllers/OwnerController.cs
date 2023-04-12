@@ -23,6 +23,10 @@ namespace PokemonReviewApp.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Gets the list of owners.
+        /// </summary>
+        /// <response code="200">Returns all of the owners.</response>
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Owner>))]
         public IActionResult GetOwners()
@@ -37,6 +41,12 @@ namespace PokemonReviewApp.Controllers
             return Ok(owners);
         }
 
+        /// <summary>
+        /// Gets owner by his ID.
+        /// </summary>
+        /// <param name="ownerId">ID of the owner to get.</param>
+        /// <response code="200">Returns the owner with the specified ID.</response>>
+        /// <response code="400">If the request is invalid.</response>>
         [HttpGet("ownerId")]
         [ProducesResponseType(200, Type = typeof(Owner))]
         [ProducesResponseType(400)]
@@ -57,6 +67,12 @@ namespace PokemonReviewApp.Controllers
             return Ok(owner);
         }
 
+        /// <summary>
+        /// Gets a pokemon by his owner.
+        /// </summary>
+        /// <param name="ownerId">ID of the owner.</param>
+        /// <response code="200">Returns the pokemon with the specified owner.</response>>
+        /// <response code="400">If the request is invalid.</response>>
         [HttpGet("{ownerId}/pokemon")]
         [ProducesResponseType(200, Type = typeof(Owner))]
         [ProducesResponseType(400)]
@@ -77,6 +93,13 @@ namespace PokemonReviewApp.Controllers
             return Ok(owner);
         }
 
+        /// <summary>
+        /// Creates a new owner.
+        /// </summary>
+        /// <param name="countryId">ID of the country.</param>
+        /// <param name="ownerCreate">The owner to be created.</param>
+        /// <response code="204">If an owner created successfully.</response>
+        /// <response code="400">If the request is invalid.</response>
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
@@ -115,6 +138,14 @@ namespace PokemonReviewApp.Controllers
             return Ok("Successfully created");
         }
 
+        /// <summary>
+        ///  Updates an owner with the specified ID.
+        /// </summary>
+        /// <param name="ownerId">The ID of the owner to be updated.</param>
+        /// <param name="updatedOwner">The updated owner data.</param>
+        /// <response code="204">If the owner is successfully updated.</response>
+        /// <response code="400">If the request is invalid.</response>
+        /// <response code="404">If an owner with the specified ID is not found.</response>
         [HttpPut("{ownerId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
@@ -152,6 +183,13 @@ namespace PokemonReviewApp.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Removes an owner with the specified ID.
+        /// </summary>
+        /// <param name="ownerId">The ID of the owner to be removed.</param>
+        /// <response code="204">If the owner is successfully removed.</response>
+        /// <response code="400">If the request is invalid.</response>
+        /// <response code="404">If an owner with the specified ID is not found.</response>
         [HttpDelete("{ownerId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
