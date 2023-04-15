@@ -24,6 +24,10 @@ namespace PokemonReviewApp.Controllers
             _mapper = mapper;
         }
 
+        /// <summary>
+        /// Gets the list of reviews.
+        /// </summary>
+        /// <response code="200">Returns all of the reviews.</response>
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Review>))]
         public IActionResult GetReviews()
@@ -38,6 +42,12 @@ namespace PokemonReviewApp.Controllers
             return Ok(reviews);
         }
 
+        /// <summary>
+        /// Gets review by it's ID.
+        /// </summary>
+        /// <param name="reviewId">ID of the review to get.</param>
+        /// <response code="200">Returns the review with the specified ID.</response>>
+        /// <response code="400">If the request is invalid.</response>>
         [HttpGet("{reviewId}")]
         [ProducesResponseType(200, Type = typeof(Review))]
         [ProducesResponseType(400)]
@@ -58,6 +68,12 @@ namespace PokemonReviewApp.Controllers
             return Ok(review);
         }
 
+        /// <summary>
+        /// Gets reviews for a certain pokemon.
+        /// </summary>
+        /// <param name="pokemonId">ID of the pokemon want to get reviews.</param>
+        /// <response code="200">Returns the pokemon's reviews.</response>>
+        /// <response code="400">If the request is invalid.</response>>
         [HttpGet("pokemon/{pokemonId}")]
         [ProducesResponseType(200, Type = typeof(Review))]
         [ProducesResponseType(400)]
@@ -73,6 +89,13 @@ namespace PokemonReviewApp.Controllers
             return Ok(reviews);
         }
 
+        /// <summary>
+        /// Creates a new review.
+        /// </summary>
+        /// <param name="reviewerId">ID of the reviewer.</param>
+        /// <param name="pokemonId">ID of the pokemon.</param>
+        /// <param name="reviewCreate">The review to be created.</param>
+        /// <returns></returns>
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
@@ -112,6 +135,14 @@ namespace PokemonReviewApp.Controllers
             return Ok("Successfully created");
         }
 
+        /// <summary>
+        /// Updates a review with the specified ID.
+        /// </summary>
+        /// <param name="reviewId">The ID of the review to be updated.</param>
+        /// <param name="updatedReview">The updated review data.</param>
+        /// <response code="204">If the review is successfully updated.</response>
+        /// <response code="400">If the request is invalid.</response>
+        /// <response code="404">If a review with the specified ID is not found.</response>
         [HttpPut]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
@@ -149,6 +180,13 @@ namespace PokemonReviewApp.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Removes a review with the specified ID.
+        /// </summary>
+        /// <param name="reviewId">The ID of the review to be removed.</param>
+        /// <response code="204">If the review is successfully removed.</response>
+        /// <response code="400">If the request is invalid.</response>
+        /// <response code="404">If a review with the specified ID is not found.</response>
         [HttpDelete("{reviewId}")]
         [ProducesResponseType(400)]
         [ProducesResponseType(204)]
