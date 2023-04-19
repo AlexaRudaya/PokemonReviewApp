@@ -101,7 +101,8 @@ namespace PokemonReviewApp.Controllers
         /// <param name="ownerId">ID of the owner.</param>
         /// <param name="categoryId">ID of the category.</param>
         /// <param name="pokemonCreate">The pokemon to be created.</param>
-        /// <returns></returns>
+        /// <response code="204">If a pokemon created successfully.</response>
+        /// <response code="400">If the request is invalid.</response>        
         [HttpPost]
         [ProducesResponseType(204)]
         [ProducesResponseType(400)]
