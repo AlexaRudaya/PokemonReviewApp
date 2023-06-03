@@ -28,7 +28,7 @@ namespace PokemonReviewApp.Controllers
         /// <summary>
         /// Gets the list of pokemons.
         /// </summary>
-        /// <response code="200">Returns all of the pokemons.</response>
+        /// <response code="200">c</response>
         [HttpGet]
         [ProducesResponseType(200, Type = typeof(IEnumerable<Pokemon>))]
         public IActionResult GetPokemons()
