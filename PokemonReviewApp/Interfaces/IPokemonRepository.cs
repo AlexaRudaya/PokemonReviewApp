@@ -1,4 +1,5 @@
-﻿using PokemonReviewApp.Models;
+﻿using PokemonReviewApp.DTO;
+using PokemonReviewApp.Models;
 
 namespace PokemonReviewApp.Interfaces
 {
@@ -9,6 +10,8 @@ namespace PokemonReviewApp.Interfaces
         public Pokemon GetPokemon(int id);
 
         public Pokemon GetPokemon(string name);
+
+        public Pokemon GetPokemonTrimUpper(PokemonDTO pokemonCreate);
 
         public decimal GetPokemonRating(int pokemonId);
 

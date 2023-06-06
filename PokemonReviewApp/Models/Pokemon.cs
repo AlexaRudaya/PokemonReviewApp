@@ -1,6 +1,6 @@
 ﻿namespace PokemonReviewApp.Models
 {
-    public sealed class Pokemon
+    public class Pokemon
     {
         public int Id { get; set; }
 

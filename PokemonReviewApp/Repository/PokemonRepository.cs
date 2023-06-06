@@ -1,4 +1,5 @@
 ﻿using PokemonReviewApp.Data;
+using PokemonReviewApp.DTO;
 using PokemonReviewApp.Interfaces;
 using PokemonReviewApp.Models;
 
@@ -50,7 +51,7 @@ namespace PokemonReviewApp.Repository
             return Save();
         }
 
-        public Pokemon? GetPokemon(int id)  // it's gonna be a detail page
+        public Pokemon? GetPokemon(int id) 
         {
             return _context.Pokemon
                         .Where(_ => _.Id == id)
@@ -83,6 +84,15 @@ namespace PokemonReviewApp.Repository
         {
             return _context.Pokemon
                         .OrderBy(_ => _.Id).ToList(); // ToList - crucial.
+        }
+
+        public Pokemon GetPokemonTrimUpper(PokemonDTO pokemonCreate)
+        {
+            return GetPokemons().Where(_ => _.Name.Trim()
+                                                  .ToUpper() == pokemonCreate.Name
+                                                                             .TrimEnd()
+                                                                             .ToUpper())
+                                                                             .FirstOrDefault();
         }
 
         public bool PokemonExists(int pokemonId)

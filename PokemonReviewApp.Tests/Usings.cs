@@ -1,0 +1,12 @@
+global using Xunit;
+global using FluentAssertions;
+global using Microsoft.EntityFrameworkCore;
+global using PokemonReviewApp.Data;
+global using PokemonReviewApp.Models;
+global using PokemonReviewApp.Repository;
+global using AutoMapper;
+global using FakeItEasy;
+global using Microsoft.AspNetCore.Mvc;
+global using PokemonReviewApp.Controllers;
+global using PokemonReviewApp.DTO;
+global using PokemonReviewApp.Interfaces;
